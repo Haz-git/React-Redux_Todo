@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { todoCreator } from '../action';
 
-const Form = () => {
+const Form = ({ todoCreator }) => {
 
     const [ todo, setTodo ] = useState('');
 
@@ -11,16 +11,18 @@ const Form = () => {
     }
 
     const handleSubmit = e => {
+        e.preventDefault();
         console.log(todo);
+        todoCreator({ todo })
         setTodo('');
     }
 
     return (
-        <>
-            <Form onSubmit={handleSubmit}>
+        <div>
+            <form onSubmit={e => handleSubmit(e)}>
                 <div>
                     <div className='ui input'>
-                        <input type='text' placeholder='Add Todo...' value={todo} onChange={handleOnChange}/>
+                        <input type='text' placeholder='Add Todo...' value={todo} onChange={e => handleOnChange(e)}/>
                     </div>
                 </div>
                 <div>
@@ -31,15 +33,15 @@ const Form = () => {
                         Reset
                     </button>
                 </div>
-            </Form>
-        </>
+            </form>
+        </div>
     )
 }
 
-// const mapDispatchToProps = state => {
-//     return
-// }
+const mapDispatchToProps = dispatch => {
+    return {
+        todoCreator: todo => dispatch(todoCreator(todo))
+    }
+}
 
-// export default connect(mapDispatchToProps)(Form);
-
-export default Form;
+export default connect(null, mapDispatchToProps)(Form);
