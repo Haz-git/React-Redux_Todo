@@ -1,8 +1,14 @@
 import React from 'react';
+import Form from './Form';
 
 const App = () => {
     return (
-        <div>App</div>
+        <div>
+            <h1>Simple Redux Todo list</h1>
+            <div>
+                <Form />
+            </div>
+        </div>
     )
 }
 
